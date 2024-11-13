@@ -26,7 +26,7 @@ class StorePostRequest extends FormRequest
             'body' => 'required',
             'published_at' => 'nullable|date',
             'summary' => 'nullable|max:50',
-            'slug' => 'required|unique:posts,slug',
+            'slug' => 'unique:posts,slug',
             'status' => 'required|in:published,draft,archived,pending',
             'reading_time' => 'nullable|numeric',
         ];
