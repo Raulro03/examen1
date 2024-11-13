@@ -17,11 +17,15 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(),
+            'title' => $title = $this->faker->sentence(),
             'body' => $this->faker->paragraph(),
             'published_at' => random_int(0, 2)
                 ? $this->faker->dateTimeBetween('-1 month', '+1 months')
                 : null,
+            'summary' => $this->faker->text(50),
+            'slug' => trim(strtolower(str_replace(' ', '_', $title))),
+            'status' => $this->faker->randomElement(['published', 'draft', 'pending','archived']),
+            'reading_time' => $this->faker->numberBetween(0, 1000),
         ];
     }
 }
