@@ -34,6 +34,7 @@
                     ></path>
                 </svg>
             </a>
+            @if($post->status == 'pending' || $post->status == 'draft')
             <form action="{{ route('posts.destroy', $post) }}" method="POST">
                 @csrf
                 @method('DELETE')
@@ -59,6 +60,7 @@
                     </svg>
                 </button>
             </form>
+            @endif
         </div>
         @endauth
 

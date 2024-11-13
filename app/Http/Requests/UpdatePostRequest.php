@@ -25,6 +25,10 @@ class UpdatePostRequest extends FormRequest
             'title' => 'required|min:5',
             'body' => 'required',
             'published_at' => 'nullable|date',
+            'summary' => 'nullable|max:50',
+            'slug' => 'unique:posts,slug',
+            'status' => 'required|in:published,draft,archived,pending',
+            'reading_time' => 'nullable|numeric',
         ];
     }
 }

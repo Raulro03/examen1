@@ -50,7 +50,9 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $post->update($request->validated());
+        $post->update(array_merge($request->validated(),
+            ['slug' => trim(strtolower(str_replace(' ', '_', $request['title'])))]
+        ));
 
         return to_route('posts.show', $post)
             ->with('status', 'Post updated successfully');
@@ -58,10 +60,17 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->delete();
+
+        if ($post->status == 'pending' || $post->status == 'draft') {
+            $post->delete();
+
+            return to_route('posts.index')
+                ->with('status', 'Post deleted successfully');
+
+        }
 
         return to_route('posts.index')
-            ->with('status', 'Post deleted successfully');
+            ->with('status', 'No se puede eliminar este post');
     }
 
     public function userPosts()
