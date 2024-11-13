@@ -34,7 +34,10 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        auth()->user()->posts()->create($request->validated());
+        auth()->user()->posts()->create(array_merge($request->validated(),
+            ['slug' => trim(strtolower(str_replace(' ', '_', $request['title'])))]
+        ));
+
 
         return to_route('posts.index')
             ->with('status', 'Post created successfully');

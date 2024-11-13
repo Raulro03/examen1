@@ -10,7 +10,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'body', 'user_id', 'published_at', 'summary', 'slug', 'status' , 'reading_time'];
+    protected $fillable = ['title', 'body', 'user_id', 'published_at', 'summary', 'status' , 'reading_time'];
 
     public function user(): BelongsTo
     {
